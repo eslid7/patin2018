@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<FacturaElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xsi:schemaLocation="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4.2/FacturaElectronica_V.4.2.xsd">
+<Clave>50604081800011039029400100001010000000684152229220</Clave>
+<NumeroConsecutivo>00100001010000000684</NumeroConsecutivo>
+<FechaEmision>2018-08-04T10:29:33</FechaEmision>
+<Emisor>
+<Nombre>Consultorio Dra. Lobo</Nombre>
+<Identificacion>
+<Tipo>01</Tipo>
+<Numero>110390294</Numero>
+</Identificacion>
+<NombreComercial>Consultorio Dra. Lobo</NombreComercial>
+<Ubicacion>
+<Provincia>1</Provincia>
+<Canton>08</Canton>
+<Distrito>04</Distrito>
+<OtrasSenas>EL CARMEN DE GOICOECHEA, URBANIZACION BRUNCAS, CASA N°157</OtrasSenas>
+</Ubicacion>
+<Telefono>
+<CodigoPais>506</CodigoPais>
+<NumTelefono>22851526</NumTelefono>
+</Telefono>
+<Fax>
+<CodigoPais>0</CodigoPais>
+<NumTelefono>0</NumTelefono>
+</Fax>
+<CorreoElectronico>dragheenn@gmail.com</CorreoElectronico>
+</Emisor>
+<Receptor>
+<Nombre>MICHAEL SANCHEZ FALLAS</Nombre>
+<Identificacion>
+<Tipo>01</Tipo>
+<Numero>110560548</Numero>
+</Identificacion>
+<Ubicacion>
+<Provincia>1</Provincia>
+<Canton>01</Canton>
+<Distrito>01</Distrito>
+<Barrio>01</Barrio>
+<OtrasSenas>01</OtrasSenas>
+</Ubicacion>
+<Telefono>
+<CodigoPais>506</CodigoPais>
+<NumTelefono>88296341</NumTelefono>
+</Telefono>
+<CorreoElectronico>msanchez@soin.co.cr</CorreoElectronico>
+</Receptor>
+<CondicionVenta>01</CondicionVenta>
+<PlazoCredito>0</PlazoCredito>
+<MedioPago>02</MedioPago>
+<DetalleServicio>
+<LineaDetalle>
+<NumeroLinea>1</NumeroLinea>
+<Codigo>
+<Tipo>04</Tipo>
+<Codigo>18</Codigo>
+</Codigo>
+<Cantidad>1</Cantidad>
+<UnidadMedida>Sp</UnidadMedida>
+<Detalle>Control de Ortodoncia</Detalle>
+<PrecioUnitario>45000</PrecioUnitario>
+<MontoTotal>45000</MontoTotal>
+<SubTotal>45000</SubTotal>
+<MontoTotalLinea>45000</MontoTotalLinea>
+</LineaDetalle>
+</DetalleServicio>
+<ResumenFactura>
+<CodigoMoneda>CRC</CodigoMoneda>
+<TipoCambio>1</TipoCambio>
+<TotalServGravados>0</TotalServGravados>
+<TotalServExentos>45000</TotalServExentos>
+<TotalMercanciasGravadas>0</TotalMercanciasGravadas>
+<TotalMercanciasExentas>0</TotalMercanciasExentas>
+<TotalGravado>0</TotalGravado>
+<TotalExento>45000</TotalExento>
+<TotalVenta>45000</TotalVenta>
+<TotalDescuentos>0</TotalDescuentos>
+<TotalVentaNeta>45000</TotalVentaNeta>
+<TotalImpuesto>0</TotalImpuesto>
+<TotalComprobante>45000</TotalComprobante>
+</ResumenFactura>
+<Normativa>
+<NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
+<FechaResolucion>07-10-2016 08:00:00</FechaResolucion>
+</Normativa>
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="Id-fba0f755-baec-4d77-92e6-1c8559d45b77"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /><ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" /><ds:Reference Id="r-id-f3f0ef19-6649-4a7e-8730-1d79d8ad2f99" URI=""><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/TR/1999/REC-xpath-19991116"><ds:XPath>not(ancestor-or-self::ds:Signature)</ds:XPath></ds:Transform><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" /><ds:DigestValue>MlDncttbyzRl4za5QHikomtzOUEzTbGYjgHIuo2euuw=</ds:DigestValue></ds:Reference><ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#xades-Id-fba0f755-baec-4d77-92e6-1c8559d45b77"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" /><ds:DigestValue>2D3+Xo7if8c6zeD9EmZCZgEiyhxw5Ee8bWWFzZnJI5s=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue Id="value-id-fba0f755-baec-4d77-92e6-1c8559d45b77">U3/KXRsZjxmM5W3IRhv2YVoqRyTnu8JuUS6nPyvzSk1m7rl2DGfnIepWaNOcVOP8/+l/CWdGxRVvX2BqeqElclJ61UsGO1lDLgKZtvYp1VciN8lupseexb5CmvU1fimuuO84FO6vCkPR51ByTGKC3mm5jk4HUzErkCHdSegm1IRBczLriuJlumkGU+jKLX8Ox8vxxZ73nTi8m/2D6Qi4EqTt2iIqzi2X6d1nzn1pUZ6GY/iG+5svQJ6FFzJDJFkx6bruoiEnAcex+s0Mr42bgvCQ7ZP1OpQt/9rjRujTClSvFf+9iOlrranGxOtoKhimzVubCbLqNC6WHrNd2eni8Q==</ds:SignatureValue><ds:KeyInfo><ds:X509Data><ds:X509Certificate>MIIFSzCCAzOgAwIBAgIGAWDcF+ZsMA0GCSqGSIb3DQEBCwUAMFgxCzAJBgNVBAYTAkNSMR8wHQYDVQQKDBZNSU5JU1RFUklPIERFIEhBQ0lFTkRBMQwwCgYDVQQLDANER1QxGjAYBgNVBAMMEUNBIFBFUlNPTkEgRklTSUNBMB4XDTE4MDEwOTE4MDQwMloXDTIwMDEwOTE4MDQwMlowgacxGTAXBgNVBAUTEENQRi0wMS0xMDM5LTAyOTQxFDASBgNVBAQMC0xPQk8gVU1Bw5FBMRkwFwYDVQQqDBBHSEVFTk4gRUxJWkFCRVRIMQswCQYDVQQGEwJDUjEXMBUGA1UECgwOUEVSU09OQSBGSVNJQ0ExDDAKBgNVBAsMA0NQRjElMCMGA1UEAwwcR0hFRU5OIEVMSVpBQkVUSCBMT0JPIFVNQcORQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAIYBdlB/qqyVWhlx15Dg3xTC86QrsY98Kv5rLyU7EgqvkqghuTMAd1GNPot7ivG9IsaWyJRp02TxhfLstT1vB6e8KCNbAJ7l/ZcDjGev5NmDCZviXx9dH8erHouP/mTEHQCap8EcaDbSuyD7PdanTll8I2zHJ7JDmWzTyFz3JScIKLoiA+hfJRNmuk2lWNfHkLYY4wFiJJQrX2D+OZWpPtiM9NJQ75C4309ZQR32/rcMnxQmKbXifBjU5fAxNMJpWCRBPKUgLdUKZDrMIovDzHEeA7nLuauzNvP2pl5ly+xSHC2qPvqUSpxvW7iR8F5y1u4OAeG5JGSs38nVddR4p4kCAwEAAaOByjCBxzAfBgNVHSMEGDAWgBQT9mpBDe2iJEXRyJSoQYN8YiVrWTAdBgNVHQ4EFgQUh92l1ikgtXN2YnSY9ndR2/jaJQ8wCwYDVR0PBAQDAgbAMBMGA1UdJQQMMAoGCCsGAQUFBwMEMGMGCCsGAQUFBwEBBFcwVTBTBggrBgEFBQcwAoZHaHR0cHM6Ly9wa2kuY29tcHJvYmFudGVzZWxlY3Ryb25pY29zLmdvLmNyL3Byb2QvaW50ZXJtZWRpYXRlLXBmLXBlbS5jcnQwDQYJKoZIhvcNAQELBQADggIBAD9KrF/GyDB521hPJEGVOKKK3BnhYA1Y5Ttpzuz/4sJzhH0BLvOWb6B3DgVCOlYUPGkP7g/b4a8713moapdlhAkdbnTVuwVsrX5RWLWP5oEwx1R7NFtAB1On83hxcawlbQrEnGFUz8qeqjaCnr+BhD6N2g752ZRElOVLzoPQzTrrriEAcU9Rq9yYTlSTATse3WGOfFld6oaCE+ElhPxkPQ5gKtNZwLyCO9nXo1sIRM2T4jcaA1mFIAzERpbx6gSEwvOJwrJoV7jefXCbt1YEkCANxJzVl5Om9KMZaCV44VIBRpdmtCSkYkT7xa4KtVsX1a/uAB/8bo0YtVZxOBZYEqdlB/ArLuHaBGY1Ht1uicBN/e5zgGhj1VuFXy8Xn9zHNaEvQDur49P/ZvJl8cnH8fQq/NFfkOUWPzJXQ2up2jVQgXSwaQDyXEN+/42IIuN1WS7UYbofsb2fXZ/8A1mv5fedmlIEj1yX4DV4KfszPFqq5qpnGSf9fqZPm1+O7o0D0PFA5bF2d9UI/EAIzkojK2SNJM7M6nItrES+pcMgtD4GGd84SWjZzYkhY6MqWzc4vOf9STK2P/ViDbeQaWxN1ivGptfeDDoAz0VbyrGWQ7CT8BvwJvCF3fwRZiWXjJw8l3L5hYylVKSauswiRpLDDo00RO1aOSG9HWYziz+WsaYU</ds:X509Certificate></ds:X509Data></ds:KeyInfo><ds:Object><xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Id="QualifyingProperties-36a29986-8e47-492b-aab0-a04c010cddd7" Target="#Id-fba0f755-baec-4d77-92e6-1c8559d45b77"><xades:SignedProperties Id="xades-Id-fba0f755-baec-4d77-92e6-1c8559d45b77"><xades:SignedSignatureProperties><xades:SigningTime>2018-08-04T10:31:22-06:00</xades:SigningTime><xades:SigningCertificate><xades:Cert><xades:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><ds:DigestValue>RYmW18j206+MexWILqyO05/wp+g=</ds:DigestValue></xades:CertDigest><xades:IssuerSerial><ds:X509IssuerName>CN=CA PERSONA FISICA, OU=DGT, O=MINISTERIO DE HACIENDA, C=CR</ds:X509IssuerName><ds:X509SerialNumber>1515521042028</ds:X509SerialNumber></xades:IssuerSerial></xades:Cert></xades:SigningCertificate><xades:SignaturePolicyIdentifier><xades:SignaturePolicyId><xades:SigPolicyId><xades:Identifier>https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4.2/ResolucionComprobantesElectronicosDGT-R-48-2016_4.2.pdf</xades:Identifier><xades:Description /></xades:SigPolicyId><xades:SigPolicyHash><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" /><ds:DigestValue>NmI5Njk1ZThkNzI0MmIzMGJmZDAyNDc4YjUwNzkzODM2NTBiOWUxNTBkMmI2YjgzYzZjM2I5NTZlNDQ4OWQzMQ==</ds:DigestValue></xades:SigPolicyHash></xades:SignaturePolicyId></xades:SignaturePolicyIdentifier></xades:SignedSignatureProperties><xades:SignedDataObjectProperties><xades:DataObjectFormat ObjectReference="#r-id-f3f0ef19-6649-4a7e-8730-1d79d8ad2f99"><xades:MimeType>application/octet-stream</xades:MimeType></xades:DataObjectFormat></xades:SignedDataObjectProperties></xades:SignedProperties></xades:QualifyingProperties></ds:Object></ds:Signature></FacturaElectronica>
