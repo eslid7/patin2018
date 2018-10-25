@@ -15,7 +15,7 @@ router.route('/delete').get(userController.deteleUsers);
 router.route('/loadFiles').get(userController.loadFiles);
 router.route('/loadFile').post(userController.loadFile);
 
-router.route('/getMyBills').get(billController.getBillsUser);
+router.route('/getMyBills').get(userController.getBillsUserB);
 
 
 router.route('/getAllBills').get(billController.getAllBills);

@@ -23,7 +23,7 @@
             'position': "right",        // right | inside | overlay
             'text': "",                 // Text to display next to the loader
             'class': "icon-refresh",    // loader CSS class
-            'tpl': '<span class="isloading-wrapper %wrapper%"><div id="loading-div"><img src="/static/images/ajax_modal_loading.gif" ><p style="color:white;">%text%</p></div></span>',    // loader base Tag
+            'tpl': '<span class="isloading-wrapper %wrapper%"><div id="loading-div"><img src="/static/img/ajax_modal_loading.gif" ><p style="color:white;">%text%</p></div></span>',    // loader base Tag
             'disableSource': true,      // true | false
             'disableOthers': []
         };

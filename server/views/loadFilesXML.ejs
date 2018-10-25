@@ -91,7 +91,20 @@
 								Listado de Archivos cargados
 							</labe>
 							<div class="controls">
+								<table id="listBills" data-toggle="table" class="display table table-bordered" data-url="/users/getMyBills">
+								    <thead>
+								        <tr>
 
+								        	<th data-field="consecutive">Numero Factura</th>
+								            <th data-field="idissuing">Id emisor</th>
+								            <th data-field="nameissuing">Nombre emisor</th>
+								            <th data-field="idreceiver">Id receptor</th>
+								            <th data-field="namereceiver">Nombre receptor</th>
+								            <th data-field="codemoney">Moneda</th>
+								            <th data-field="totalsales">Total Venta</th>
+								        </tr>
+								    </thead>
+								</table>
 							</div>
 						</div>
 					</div>
@@ -124,9 +137,33 @@
 	<script src="/static/libs/jquery.validate.min.js" type="text/javascript"></script>
 	<script src="/static/libs/bootstrap-fileupload.min.js" type="text/javascript"></script>
 	<script src="/static/libs/jquery.form.min.js" type="text/javascript"></script>
+	<script src="/static/libs/bootstrap-table.min.js"></script>
+	<script src="/static/libs/bootstrap-table-es-CR.min.js"></script>
 </html>
 
 <script type="text/javascript">
+
+	$(document).ready(function(){
+
+	  $.ajax({
+	       url: '/users/getMyBills',
+	       dataType: 'json',
+	       success: function(data) {
+	           $('#listBills').bootstrapTable({
+	           		consecutive:data.consecutive,
+	              	idissuing	: data.idissuing,
+	              	nameissuing : data.nameissuing,
+	              	idreceiver : data.idreceiver,
+	              	namereceiver : data.namereceiver,
+	              	codemoney	: data.codemoney,
+	              	totalsales :data.totalsales
+	           });
+	       },
+	       error: function(e) {
+	           console.log(e.responseText);
+	       }
+	    });
+	 });
 
 	function loadFile() {
 		if($('#sendNewFile').valid()){
@@ -144,7 +181,9 @@
 				}
 			}).done(function (data) {
 				fnOpenSusessDialog("Se ha guardado con exito");
-				 $("#newFile").val("");
+				$("#newFile").val("");
+				//recordame que debo actualizar la tabla
+				$('#listBills').bootstrapTable('refresh', {silent: true});
 			}).fail(function (data) {
 				hideIsLoading();
 				fnOpenErrorDialog(data.responseJSON.message);

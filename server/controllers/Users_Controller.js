@@ -285,6 +285,10 @@ function logout(req,res){
   	res.redirect('/users/index');
 }
 
+function getBillsUserB(req,res){
+	billController.getBillsUser(sess.user_id, req, res);
+}
+
 
 // function patitop(){
 // 	var appDir = path.dirname(require.main.filename);
@@ -349,5 +353,6 @@ module.exports = {
 	sign,
 	loadFiles,
 	loadFile,
-	logout
+	logout,
+	getBillsUserB
 }
