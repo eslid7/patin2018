@@ -1,5 +1,7 @@
 // ServicesEmailTemplate
-const serviceEmailTemplateLocation = `http://localhost:${process.env.PORT ||
+const config = require('../env')
+console.log(config.route)
+const serviceEmailTemplateLocation = `${config.route}:${process.env.PORT ||
   5050}`
 const serviceEmailTemplateAppName = 'XMLProcessor'
 const serviceEmailTemplateFont = 'Helvetica Neue'
