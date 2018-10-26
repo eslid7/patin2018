@@ -20,5 +20,7 @@ router.route('/getMyBills').get(userController.getBillsUserB);
 
 router.route('/getAllBills').get(billController.getAllBills);
 router.route('/deleteAllBills').get(billController.deteleAllBills);
+router.route('/deteleAllProducts').get(billController.deteleAllProducts);
+
 router.route('/getAllProducts').get(billController.getAllProducts);
 module.exports = router

@@ -102,10 +102,18 @@ function getBillsUser(userID, req, res){
     });
 }
 
+function deteleAllProducts (req, res) {
+	 productModel.deleteMany({},function(err) {
+      if(err) { return handleError(res, err); }
+      return res.sendStatus(200);
+    });
+}
+
 module.exports = {
 	newBill,
 	getAllBills,
 	deteleAllBills,
 	getAllProducts,
-	getBillsUser
+	getBillsUser,
+	deteleAllProducts
 }
