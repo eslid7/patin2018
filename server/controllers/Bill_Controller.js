@@ -16,41 +16,50 @@ function newBill(billJson, userID, req, res){
 	var detailProducts = billJson.FacturaElectronica.DetalleServicio.LineaDetalle
 
 		//me falta hacer un loop
-		const productsToSave = new productModel({
-				row : detailProducts.NumeroLinea,
-				code: detailProducts.Codigo.Codigo,
-				detail : detailProducts.Detalle,
-				quantity: detailProducts.Cantidad,
-				priceunit: detailProducts.PrecioUnitario,
-				totalrow: detailProducts.MontoTotal
-		})
-
-
+		//console.log(detailProducts)
+		const productItemToSave = new Array();
+		for (var item in detailProducts) {
+			console.log(detailProducts[item])
+			productItemToSave.push({
+				row : detailProducts[item].NumeroLinea,
+				code: detailProducts[item].Codigo ? detailProducts[item].Codigo.Codigo || '' : '',
+				detail : detailProducts[item].Detalle,
+				quantity: detailProducts[item].Cantidad,
+				priceunit: detailProducts[item].PrecioUnitario,
+				totalrow: detailProducts[item].MontoTotal
+			});
+		}
+		console.log(productItemToSave)
+		//const productsToSave = productModel;
 
 			//se devuelve el usuaurio
-			productsToSave.save().then(function (productsSave) {
+			productModel.insertMany(productItemToSave).then(function (productsSave) {
+				const emisor = billJson.FacturaElectronica.Emisor
+
+				const receptor = billJson.FacturaElectronica.Receptor
 
 				const billsToSave = new billModel({
 					user_id :userID,
 					consecutive : billJson.FacturaElectronica.NumeroConsecutivo,
 					date: billJson.FacturaElectronica.FechaEmision,
 
-					nameissuing: billJson.FacturaElectronica.Emisor.Nombre,
-					idissuing : billJson.FacturaElectronica.Emisor.Identificacion.Numero,
-					typeidissuing : billJson.FacturaElectronica.Emisor.Identificacion.Tipo,
-					addressissuing : billJson.FacturaElectronica.Emisor.Ubicacion.OtrasSenas,
-					phonesissuing :billJson.FacturaElectronica.Emisor.Telefono.NumTelefono,
-					emailsissuing :billJson.FacturaElectronica.Emisor.CorreoElectronico,
+					nameissuing: emisor.Nombre,
+					idissuing : emisor.Identificacion.Numero,
+					typeidissuing : emisor.Identificacion.Tipo,
+					addressissuing : emisor.Ubicacion.OtrasSenas || '',
+					phonesissuing :emisor.Telefono ? emisor.NumTelefono || '' : '',
+					emailsissuing :emisor.CorreoElectronico,
 
 
-					namereceiver: billJson.FacturaElectronica.Receptor.Nombre,
-					idreceiver : billJson.FacturaElectronica.Receptor.Identificacion.Numero,
-					typeidreceiver : billJson.FacturaElectronica.Receptor.Identificacion.Tipo,
-					addressreceiver : billJson.FacturaElectronica.Receptor.Ubicacion.OtrasSenas,
-					phonesreceiver : billJson.FacturaElectronica.Receptor.Telefono.NumTelefono,
-					emailsreceiver : billJson.FacturaElectronica.Receptor.CorreoElectronico,
+					namereceiver: receptor.Nombre,
+					idreceiver : receptor.Identificacion.Numero,
+					typeidreceiver : receptor.Identificacion.Tipo,
 
-					Products :[productsSave],
+					addressreceiver : receptor.Ubicacion ? receptor.Ubicacion.OtrasSenas || '' : '',
+					phonesreceiver : receptor.Telefono ? receptor.NumTelefono || '' : '',
+					emailsreceiver : receptor.CorreoElectronico,
+
+					Products :productsSave,
 					codemoney : billJson.FacturaElectronica.ResumenFactura.CodigoMoneda,
 					totalwithtaxes : billJson.FacturaElectronica.ResumenFactura.TotalServGravados,
 					totalnotaxes :billJson.FacturaElectronica.ResumenFactura.TotalServExentos,
@@ -65,13 +74,15 @@ function newBill(billJson, userID, req, res){
 						message: 'Se ha guardado exitosamente'
 					})
 				}).catch(function (err) {
+					console.log(err);
 					res.status(400).json({
-						message: 'Error al guardarlo'
+						message: 'Error al guardarlo2'
 					})
 				})
 			}).catch(function (err) {
+				console.log(err);
 				res.status(400).json({
-					message: 'Error al guardarlo'
+					message: 'Error al guardarlo1'
 				})
 			})
 
