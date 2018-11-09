@@ -5,13 +5,11 @@ const express = require('express')
 const session = require('express-session')
 const config = require('./env')
 const mongoose = require('mongoose')
-
 const passport = require('passport')
 const passportStatregy = require('./strategies/passport')
 const passportConfig = require('./passport')
-
 const routes = require('../routes')
-const busboy = require('connect-busboy')
+
 
 module.exports.initPassport = function initPassport(app) {
   app.use(
@@ -56,7 +54,6 @@ module.exports.initMiddlewares = function initMiddlewares(app) {
        parameterLimit: 50000,
     })
   )
-  app.use(busboy())
 }
 
 module.exports.initViewsEngine = function initViewsEngine(app) {

@@ -13,6 +13,8 @@ var fs = require('fs'),
     path = require('path'),
     xmlReader = require('read-xml');
 
+const multer = require('multer');
+const pify = require('pify');
 //var formidable = require('formidable');
 var parser = require('xml2json');
 
@@ -252,31 +254,40 @@ function loadFiles(req, res){
 	}
 }
 
-function loadFile(req,res){
-	var appDir = path.dirname(require.main.filename);
-	req.pipe(req.busboy)
-	req.busboy.on('file', (fieldname, file, filename) => {
-    	const fstream = fs.createWriteStream(`./server/public/filesUpload/${filename}`)
-		file.pipe(fstream)
-	    fstream.on('close', () => {
-	    	//proceso que lee el archivo
-	    	var newpath = appDir+'/server/public/filesUpload/'+filename
-			xmlReader.readXML(fs.readFileSync(newpath), function(err, data) {
-			  	if (err) {
-			    	console.error("erro3 ",err);
-			    	res.status(500).json({
-						error: err
-					})
-			  	}
-			  	console.log("lllegegee1111");
-			  	//tengo que serialzarlo y procesarlo.
-			  	var newJson = JSON.parse(parser.toJson(data.content));
-			  	console.log("to json -> %s", newJson.FacturaElectronica.NumeroConsecutivo);
-			  	var response = billController.newBill(newJson, sess.user_id,req, res);
-			});
-	    })
-	 })
+async function loadFile (req,res){
+   const storage = multer.memoryStorage()
+   const upload = pify(multer({ storage }).single('newFile'))
+   const appDir = path.dirname(require.main.filename);
+
+   await upload(req, res)
+
+   fs.writeFile(
+     `server/public/filesUpload/${req.file.originalname}`,
+     req.file.buffer,
+     'binary',
+     err => {
+       if (err) {
+         console.log(err)
+       }
+		//proceso que lee el archivo
+    	var newpath = appDir+'/server/public/filesUpload/'+req.file.originalname
+		xmlReader.readXML(fs.readFileSync(newpath), function(err, data) {
+		  	if (err) {
+		    	console.error("erro3 ",err);
+		    	res.status(500).json({
+					error: err
+				})
+		  	}
+		  	console.log("lllegegee1111");
+		  	//tengo que serialzarlo y procesarlo.
+		  	var newJson = JSON.parse(parser.toJson(data.content));
+		  	console.log("to json -> %s", newJson.FacturaElectronica.NumeroConsecutivo);
+		  	var response = billController.newBill(newJson, sess.user_id,req, res);
+		});
+     }
+   )
 }
+
 function logout(req,res){
 	if (typeof sess !== 'undefined' && sess.email!=''){
 		sess.email = '';
@@ -290,55 +301,7 @@ function getBillsUserB(req,res){
 }
 
 
-// function patitop(){
-// 	var appDir = path.dirname(require.main.filename);
 
-
-// 	var form = new formidable.IncomingForm();
-//     form.parse(req, function (err, fields, files) {
-//     	if (err) {
-// 	    	console.error("erro1 ",err);
-// 	    	res.status(500).json({
-// 				error: err
-// 			})
-// 	  	}
-// 	  	console.log("files.newfile -> %s",files.newfile);
-// 		var oldpath = files.newfile.path;
-// 		//var oldpath = req.body.newfile;
-// 	 	var newpath = appDir+'/server/public/filesUpload/' + files.newfile.name;
-// 	 	fs.rename(oldpath, newpath, function (err) {
-// 	    	if (err) {
-// 		    	console.error("erro2 ",err);
-// 		    	res.status(500).json({
-// 					error: err
-// 				})
-// 		  	}
-
-// 			//pass a buffer or a path to a xml file
-// 			xmlReader.readXML(fs.readFileSync(newpath), function(err, data) {
-// 			  	if (err) {
-// 			    	console.error("erro3 ",err);
-// 			    	res.status(500).json({
-// 						error: err
-// 					})
-// 			  	}
-
-// 			  	//tengo que serialzarlo y procesarlo.
-// 			  	var newJson = JSON.parse(parser.toJson(data.content));
-
-// 			   	console.log("to json -> %s", newJson.FacturaElectronica.NumeroConsecutivo);
-
-// 			   	res.status(200).json({
-// 					message: 'Se ha guardado exitosamente'
-// 				})
-// 				//res.redirect('/users/loadFiles?message=eeexito');
-// 			});
-
-
-// 	  	});
-// 	});
-
-// }
 
 module.exports = {
 	login,

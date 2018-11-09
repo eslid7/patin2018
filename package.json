@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/eslid7/patin2018#readme",
   "dependencies": {
+    "bify": "^1.0.0",
     "body-parser": "^1.18.3",
     "connect-busboy": "0.0.2",
     "ejs": "^2.6.1",
@@ -32,6 +33,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
+    "pify": "^4.0.1",
     "read-xml": "^3.0.0",
     "xml-reader": "^2.4.3",
     "xml2json": "^0.11.2"
