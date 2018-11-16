@@ -70,7 +70,12 @@ module.exports.init = () => {
   this.initRoutes(app)
   this.initViewsEngine(app)
   app
-    .listen(config.port, err => {
+    .listen(config.port, () => {
+      console.log(
+        'App listening on port %s, in environment %s!',
+        config.port,
+        process.env.NODE_ENV || 'develop'
+      )
       console.log('**********************')
       console.log('patim-server online')
       console.log('**********************')

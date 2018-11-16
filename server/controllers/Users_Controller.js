@@ -8,15 +8,12 @@ const crypto = require('crypto')
 const tools = require('../config/utils/tools')
 const MailServices = require('../config/utils/mailServices')
 const mailTemplates = require('../config/utils/emailTemplates')
-
-var fs = require('fs'),
-    path = require('path'),
-    xmlReader = require('read-xml');
-
+const fs = require('fs')
+const path = require('path')
+const xmlReader = require('read-xml')
 const multer = require('multer');
 const pify = require('pify');
-//var formidable = require('formidable');
-var parser = require('xml2json');
+const parser = require('xml2json');
 
 var sess;
 
@@ -254,38 +251,43 @@ function loadFiles(req, res){
 	}
 }
 
+function getDahboard(req, res){
+	if (typeof sess !== 'undefined' && sess.email!=''){
+		return res.render('getDahsboard')
+	}
+	else{
+		res.redirect('/users/index');
+	}
+}
+
+
+
 async function loadFile (req,res){
-   const storage = multer.memoryStorage()
-   const upload = pify(multer({ storage }).single('newFile'))
-   const appDir = path.dirname(require.main.filename);
+   	const storage = multer.diskStorage({
+      destination: 'server/public/filesUpload/',
+      filename(req, file, cb) {
+        cb(null, file.originalname)
+      },
+    });
+   	const upload = pify(multer({ storage }).single('newFile'))
+   	const appDir = path.dirname(require.main.filename);
 
-   await upload(req, res)
+   	await upload(req, res)
 
-   fs.writeFile(
-     `server/public/filesUpload/${req.file.originalname}`,
-     req.file.buffer,
-     'binary',
-     err => {
-       if (err) {
-         console.log(err)
-       }
-		//proceso que lee el archivo
-    	var newpath = appDir+'/server/public/filesUpload/'+req.file.originalname
-		xmlReader.readXML(fs.readFileSync(newpath), function(err, data) {
-		  	if (err) {
-		    	console.error("erro3 ",err);
-		    	res.status(500).json({
-					error: err
-				})
-		  	}
-		  	console.log("lllegegee1111");
-		  	//tengo que serialzarlo y procesarlo.
-		  	var newJson = JSON.parse(parser.toJson(data.content));
-		  	console.log("to json -> %s", newJson.FacturaElectronica.NumeroConsecutivo);
-		  	var response = billController.newBill(newJson, sess.user_id,req, res);
-		});
-     }
-   )
+	var newpath = appDir+'/server/public/filesUpload/'+req.file.originalname
+	xmlReader.readXML(fs.readFileSync(newpath), function(err, data) {
+	  	if (err) {
+	    	console.error("erro3 ",err);
+	    	res.status(500).json({
+				error: err
+			})
+	  	}
+	  	console.log("lllegegee1111");
+	  	//tengo que serialzarlo y procesarlo.
+	  	var newJson = JSON.parse(parser.toJson(data.content));
+	  	console.log("to json -> %s", newJson.FacturaElectronica.NumeroConsecutivo);
+	  	var response = billController.newBill(newJson, sess.user_id,req, res);
+	});
 }
 
 function logout(req,res){
@@ -299,9 +301,6 @@ function logout(req,res){
 function getBillsUserB(req,res){
 	billController.getBillsUser(sess.user_id, req, res);
 }
-
-
-
 
 module.exports = {
 	login,
@@ -317,5 +316,6 @@ module.exports = {
 	loadFiles,
 	loadFile,
 	logout,
-	getBillsUserB
+	getBillsUserB,
+	getDahboard
 }
