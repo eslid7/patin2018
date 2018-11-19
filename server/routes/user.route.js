@@ -16,6 +16,7 @@ router.route('/loadFiles').get(userController.loadFiles);
 router.route('/loadFile').post(userController.loadFile);
 router.route('/dashboard').get(userController.getDahboard);
 router.route('/getMyBills').get(userController.getBillsUserB);
+router.route('/getCalculateBills').get(userController.getCalculateBills);
 
 router.route('/getAllBills').get(billController.getAllBills);
 router.route('/deleteAllBills').get(billController.deteleAllBills);

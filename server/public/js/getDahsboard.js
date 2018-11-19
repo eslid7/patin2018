@@ -1,24 +1,23 @@
 
 function initDashboardDaterange() {
-
     $('#dashboard-report-range').daterangepicker({
         ranges: {
-            'Today': ['today', 'today'],
-            'Yesterday': ['yesterday', 'yesterday'],
-            'Last 7 Days': [Date.today().add({
+            'Hoy': ['today', 'today'],
+            'Hayer': ['yesterday', 'yesterday'],
+            'Ultimos 7 diías': [Date.today().add({
                     days: -6
                 }), 'today'],
-            'Last 30 Days': [Date.today().add({
+            'Ultimos 30 dias': [Date.today().add({
                     days: -29
                 }), 'today'],
-            'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
-            'Last Month': [Date.today().moveToFirstDayOfMonth().add({
+            'Mes actual': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
+            'Mes anterior': [Date.today().moveToFirstDayOfMonth().add({
                     months: -1
                 }), Date.today().moveToFirstDayOfMonth().add({
                     days: -1
                 })]
         },
-        opens: (true ? 'right' : 'left'),
+        opens: (false ? 'right' : 'left'),
         format: 'MM/dd/yyyy',
         separator: ' to ',
         startDate: Date.today().add({
@@ -26,14 +25,14 @@ function initDashboardDaterange() {
         }),
         endDate: Date.today(),
         minDate: '01/01/2012',
-        maxDate: '12/31/2014',
+        maxDate: Date.today(),
         locale: {
-            applyLabel: 'Submit',
-            fromLabel: 'From',
-            toLabel: 'To',
-            customRangeLabel: 'Custom Range',
-            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            applyLabel: 'Enviar',
+            fromLabel: 'Desde',
+            toLabel: 'Hasta',
+            customRangeLabel: 'Rango',
+            daysOfWeek: ['Do', 'Lu', 'Ma', 'Mie', 'Ju', 'Vi', 'Sa'],
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
             firstDay: 1
         },
         showWeekNumbers: true,
@@ -41,8 +40,10 @@ function initDashboardDaterange() {
     },
 
     function (start, end) {
+        $('#form_date_range_from').val(start.toString('dd/MM/yyyy'));
+        $('#form_date_range_to').val(end.toString('dd/MM/yyyy'));
         $('#dashboard-report-range span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
-
+        initDashboard();
     });
 
     $('#dashboard-report-range').show();
@@ -50,7 +51,35 @@ function initDashboardDaterange() {
     $('#dashboard-report-range span').html(Date.today().add({
         days: -29
     }).toString('MMMM d, yyyy') + ' - ' + Date.today().toString('MMMM d, yyyy'));
+    $('#form_date_range_from').val(Date.today().add({days: -29}).toString('dd/MM/yyyy'));
+	$('#form_date_range_to').val(Date.today().toString('dd/MM/yyyy'));
 }
+
+function initDashboard(){
+    $.ajax({
+        type: "GET",
+        url: "/users/getCalculateBills",
+        data: $('#form_data').serialize(),
+        beforeSend: function(){ //se muestra una imagen mientras el ajax se ejecuta
+            showIsLoading("Procesando...");
+        }
+    }).done(function (data) {
+        $('#quantityBills').html(data.quantityBills);
+        $('#totalTaxes').html(numberFormat(data.totalTaxes));
+        $('#totalBills').html(numberFormat(data.totalBills));
+    }).fail(function (data) {
+        hideIsLoading();
+        fnOpenErrorDialog(data.responseJSON.message);
+    }).always(function (data) {
+        hideIsLoading();
+    });
+}
+
+function numberFormat(theNumber){
+    newNumber = theNumber.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    return newNumber;
+};
 jQuery(document).ready(function() {
     initDashboardDaterange();
+    initDashboard();
 })

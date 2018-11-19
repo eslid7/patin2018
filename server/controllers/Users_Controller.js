@@ -302,6 +302,15 @@ function getBillsUserB(req,res){
 	billController.getBillsUser(sess.user_id, req, res);
 }
 
+function getCalculateBills(req, res){
+	if (typeof sess !== 'undefined' && sess.email!=''){
+		billController.getCalculateBills(sess.user_id, req, res)
+	}
+	else{
+		res.redirect('/users/index');
+	}
+}
+
 module.exports = {
 	login,
 	signup,
@@ -317,5 +326,6 @@ module.exports = {
 	loadFile,
 	logout,
 	getBillsUserB,
-	getDahboard
+	getDahboard,
+	getCalculateBills
 }

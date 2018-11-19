@@ -20,7 +20,7 @@ function newBill(billJson, userID, req, res){
 
 			//me falta hacer un loop
 			//console.log(detailProducts)
-			const productItemToSave = new Array();
+			let productItemToSave = new Array();
 			for (var item in detailProducts) {
 				console.log(detailProducts[item])
 				productItemToSave.push({
@@ -123,8 +123,10 @@ function getAllProducts (req, res) {
 }
 
 function getBillsUser(userID, req, res){
+	// revisar el tema del filtrado si esta definido aplicarlo
 	billModel.find({'user_id': userID},function (err, bills) {
-        res.send(bills);
+		// res.send(bills); solo funca para cuando es por aquella madre url
+		res.status(200).json({rows: bills, total:bills.length});
     });
 }
 
@@ -135,11 +137,35 @@ function deteleAllProducts (req, res) {
     });
 }
 
+function getCalculateBills(userID, req, res){
+	let from  = moment(req.query.form_date_range_from,'DD/mm/YYYY').format('YYYY-mm-DDT00:00:00');
+	let to = moment(req.query.form_date_range_to,'DD/mm/YYYY').format('YYYY-mm-DDT00:00:00');
+
+	billModel.find({'user_id': userID,'date' : {'$gte' : from , '$lte' : to }},function (err, bills) {
+		if(err){
+			console.log(err)
+			res.status(400).json({
+				message: 'Error obtener los datos de las facturas.'
+			})
+		}
+		let quantityBills =0;
+		let totalTaxes = 0;
+		let totalBills = 0
+		for (var item in bills) {
+			quantityBills += 1;
+			totalTaxes += bills[item].totaltaxes;
+			totalBills += bills[item].totalsales;
+		}
+		res.status(200).json({quantityBills:quantityBills, totalTaxes:totalTaxes, totalBills: totalBills})
+    });
+}
+
 module.exports = {
 	newBill,
 	getAllBills,
 	deteleAllBills,
 	getAllProducts,
 	getBillsUser,
-	deteleAllProducts
+	deteleAllProducts,
+	getCalculateBills
 }

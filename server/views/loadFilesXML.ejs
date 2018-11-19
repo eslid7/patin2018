@@ -10,7 +10,8 @@
 		<link href="/static/css/bootstrap-modal.min.css" rel="stylesheet" type="text/css">
 		<link href="/static/css/style.min.css" rel="stylesheet" type="text/css">
 		<link href="/static/css/index-styles.min.css" rel="stylesheet" type="text/css">
-
+		<link href="/static/css/bootstrap-table.min.css" rel="stylesheet" type="text/css">
+		<link href="/static/css/index-styles.min.css" rel="stylesheet" type="text/css">
 		<link href="/static/css/fileinput.min.css" rel="stylesheet"/>
 		<style>
 			body {
@@ -90,27 +91,27 @@
 							<labe for="name" style="font-size: 22px;">
 								Listado de Archivos cargados
 							</labe>
-							<div class="controls">
-								<table id="listBills" data-toggle="table" class="display table table-bordered" data-url="/users/getMyBills">
-								    <thead>
-								        <tr>
-								        	<th data-field="consecutive">Número Factura</th>
-								            <th data-field="idissuing">Id Emisor</th>
-								            <th data-field="nameissuing">Nombre Emisor</th>
-								            <th data-field="idreceiver">Id Receptor</th>
-								            <th data-field="namereceiver">Nombre Receptor</th>
-								            <th data-field="codemoney">Moneda</th>
-											<th data-field="totaltaxes" data-formatter="numberFormat" data-align="right">Total Impuestos</th>
-											<th data-field="totalsales" data-formatter="numberFormat" data-align="right">Total Venta</th>
-								        </tr>
-								    </thead>
-								</table>
-								<table class="bt-table"
+							<div class="controls" style="min-height:700px;">
+									<!-- <table id="listBills1" data-toggle="table" class="display table table-bordered" data-url="/users/getMyBills">
+										<thead>
+											<tr>
+												<th data-field="consecutive">Número Factura</th>
+												<th data-field="idissuing">Id Emisor</th>
+												<th data-field="nameissuing">Nombre Emisor</th>
+												<th data-field="idreceiver">Id Receptor</th>
+												<th data-field="namereceiver">Nombre Receptor</th>
+												<th data-field="codemoney">Moneda</th>
+												<th data-field="totaltaxes" data-formatter="numberFormat" data-align="right">Total Impuestos</th>
+												<th data-field="totalsales" data-formatter="numberFormat" data-align="right">Total Venta</th>
+											</tr>
+										</thead>
+									</table> -->
+								<table id="listBills" class="bt-table"
 									data-side-pagination="server"
 									data-pagination="true"
 									data-page-size="20"
 									data-page-list="[20, 40, 60]"
-									data-search="true">
+									data-search="true"  height="100%">
 								</table>
 							</div>
 						</div>

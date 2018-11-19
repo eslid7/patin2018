@@ -1,10 +1,70 @@
 $(document).ready(function(){
+
+
+    handleTableData();
     $('#newFile').change(function(){
         $('#sendNewFile').valid(true)
     });
 });
+
+function handleTableData () {
+    $('#listBills').bootstrapTable({
+        height: getHeight(),
+        method: 'GET',
+        url: '/users/getMyBills',
+        cache: false,
+        columns: [
+            {
+                field: 'consecutive',
+                title: 'Numero de factura',
+                sortable: true,
+                width: '8%'
+            }, {
+                field: 'idissuing',
+                title: 'ID Emisor',
+                sortable: true,
+                width: '5%'
+            }, {
+                field: 'nameissuing',
+                title: 'Nombre Emisor',
+                sortable: true,
+                width: '15%'
+            }, {
+                field: 'idreceiver',
+                title: 'ID Receptor',
+                sortable: true,
+                width: '5%'
+            }, {
+                field: 'namereceiver',
+                title: 'Nombre Receptor',
+                sortable: true,
+                width: '10%'
+            }, {
+                field: 'codemoney',
+                title: 'Moneda',
+                sortable: true,
+                width: '8%'
+            }, {
+                field: 'totaltaxes',
+                title: 'Total Impuestos',
+                sortable: true,
+                width: '10%',
+                formatter: numberFormat,
+                align :'right'
+            }, {
+                field: 'totalsales',
+                title: 'Total Venta',
+                sortable: true,
+                width: '10%',
+                formatter: numberFormat,
+                align :'right'
+            }
+        ]
+    });
+};
+
+
 function numberFormat(theNumber){
-    console.log(theNumber)
     newNumber = theNumber.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     return newNumber;
 };
@@ -65,3 +125,7 @@ $('#sendNewFile').validate({
         }
     }
 });
+
+function getHeight() {
+	return $(window).height();
+}
