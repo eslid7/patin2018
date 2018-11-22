@@ -124,10 +124,71 @@ function getAllProducts (req, res) {
 
 function getBillsUser(userID, req, res){
 	// revisar el tema del filtrado si esta definido aplicarlo
-	billModel.find({'user_id': userID},function (err, bills) {
-		// res.send(bills); solo funca para cuando es por aquella madre url
-		res.status(200).json({rows: bills, total:bills.length});
-    });
+	let search = {'user_id': userID}
+	if(req.query.search != undefined && req.query.search.trim() != ""){
+		if(isNaN(req.query.search)){
+			search = {
+				'user_id' : userID,
+				$or : [
+					{'nameissuing' : { $regex: new RegExp(req.query.search)}},
+					{'namereceiver' : { $regex: new RegExp(req.query.search)}},
+					{'codemoney' : { $regex: new RegExp(req.query.search)}},
+					{'idissuing' : { $regex: new RegExp(req.query.search)}},
+					{'idreceiver' : { $regex: new RegExp(req.query.search)}}
+				]
+			}
+
+		}
+		else{
+			search = {
+				'user_id' : userID,
+				$or : [
+					{'nameissuing' : { $regex: new RegExp(req.query.search)}},
+					{'namereceiver' : { $regex: new RegExp(req.query.search)}},
+					{'codemoney' : { $regex: new RegExp(req.query.search)}},
+					{'idissuing' : { $regex: new RegExp(req.query.search)}},
+					{'idreceiver' : { $regex: new RegExp(req.query.search)}},
+					{"$where": `function() { return this.consecutive.toString().match(/${req.query.search}/) != null; }`},
+					{"$where": `function() { return this.totaltaxes.toString().match(/${req.query.search}/) != null; }`},
+					{"$where": `function() { return this.totalsales.toString().match(/${req.query.search}/) != null; }`}
+				]
+			}
+		}
+
+	}
+
+	if(req.query.order && req.query.sort){
+		let sortDirection = 1
+		if(req.query.order == 'desc'){
+			sortDirection = -1
+		}
+
+		billModel.find(search, null, {sort:{[req.query.sort]: sortDirection}}, function(err, bills) {
+			if(err){
+				console.log(err)
+				res.status(400).json({
+					message: 'Error obtener los datos de las facturas.'
+				})
+			}
+			else{
+				res.status(200).json({rows: bills, total:bills.length});
+			}
+		})
+	}
+	else{
+		billModel.find(search, function (err, bills) {
+			if(err){
+				console.log(err)
+				res.status(400).json({
+					message: 'Error obtener los datos de las facturas.'
+				})
+			}
+			else{
+				res.status(200).json({rows: bills, total:bills.length});
+			}
+		})
+	}
+
 }
 
 function deteleAllProducts (req, res) {
