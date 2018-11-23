@@ -23,4 +23,6 @@ router.route('/deleteAllBills').get(billController.deteleAllBills);
 router.route('/deteleAllProducts').get(billController.deteleAllProducts);
 
 router.route('/getAllProducts').get(billController.getAllProducts);
+router.route('/getProductsByID').get(billController.getProductsByID);
+
 module.exports = router
