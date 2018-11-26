@@ -90,13 +90,13 @@ function fnSeeRow(row, indx) {
 	$('#money_Bill').html('<font class="subtitle">Moneda :</font> ' + row.codemoney);
 	$('#totaltaxes_Bill').html('<font class="subtitle">Total Impuestos:</font> ' + numberFormat(row.totaltaxes));
 	$('#total_Bill').html('<font class="subtitle">Total Factura:</font> ' + numberFormat(row.totalsales));
-    $('#idissuing_Bill').html('<font class="subtitle">ID Emisor :</font> ' + row.idissuing);
-    $('#nameissuing_Bill').html('<font class="subtitle">Nombre Emisor :</font> ' + row.nameissuing);
-    $('#addressissuing_Bill').html('<font class="subtitle">Dirrección Emiso :</font> ' + row.addressissuing);
+    $('#idissuing_Bill').html('<font class="subtitle">Identificación :</font> ' + row.idissuing);
+    $('#nameissuing_Bill').html('<font class="subtitle">Nombre :</font> ' + row.nameissuing);
+    $('#addressissuing_Bill').html('<font class="subtitle">Dirrección :</font> ' + row.addressissuing);
     $('#emailsissuing_Bill').html('<font class="subtitle">Correo :</font> ' + row.emailsissuing);
-    $('#idreceiver_Bill').html('<font class="subtitle">Moneda :</font> ' + row.idreceiver);
-    $('#namereceiver_Bill').html('<font class="subtitle">Moneda :</font> ' + row.namereceiver);
-    $('#emailsreceiver_Bill').html('<font class="subtitle">Moneda :</font> ' + row.emailsreceiver);
+    $('#idreceiver_Bill').html('<font class="subtitle">Identificación :</font> ' + row.idreceiver);
+    $('#namereceiver_Bill').html('<font class="subtitle">Nombre :</font> ' + row.namereceiver);
+    $('#emailsreceiver_Bill').html('<font class="subtitle">Correo :</font> ' + row.emailsreceiver);
     if(!isFirtsDatatable){
         $('#ProductsLines').bootstrapTable('destroy');
     }
@@ -148,8 +148,10 @@ function fnSeeRow(row, indx) {
 }
 
 function numberFormat(theNumber){
-    newNumber = theNumber.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    return newNumber;
+    if(theNumber!=undefined){
+        newNumber = theNumber.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        return newNumber;
+    }
 };
 
 

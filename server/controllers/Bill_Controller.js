@@ -21,17 +21,30 @@ function newBill(billJson, userID, req, res){
 			//me falta hacer un loop
 			//console.log(detailProducts)
 			let productItemToSave = new Array();
-			for (var item in detailProducts) {
-				console.log(detailProducts[item])
+			if(Array.isArray(detailProducts)){
+				for (var item in detailProducts) {
+					console.log(detailProducts[item])
+					productItemToSave.push({
+						row : detailProducts[item].NumeroLinea,
+						code: detailProducts[item].Codigo ? detailProducts[item].Codigo.Codigo || '' : '',
+						detail : detailProducts[item].Detalle,
+						quantity: detailProducts[item].Cantidad,
+						priceunit: detailProducts[item].PrecioUnitario,
+						totalrow: detailProducts[item].MontoTotal
+					});
+				}
+			}
+			else{
 				productItemToSave.push({
-					row : detailProducts[item].NumeroLinea,
-					code: detailProducts[item].Codigo ? detailProducts[item].Codigo.Codigo || '' : '',
-					detail : detailProducts[item].Detalle,
-					quantity: detailProducts[item].Cantidad,
-					priceunit: detailProducts[item].PrecioUnitario,
-					totalrow: detailProducts[item].MontoTotal
+					row : detailProducts.NumeroLinea,
+					code: detailProducts.Codigo ? detailProducts.Codigo.Codigo || '' : '',
+					detail : detailProducts.Detalle,
+					quantity: detailProducts.Cantidad,
+					priceunit: detailProducts.PrecioUnitario,
+					totalrow: detailProducts.MontoTotal
 				});
 			}
+
 			console.log(productItemToSave)
 			//const productsToSave = productModel;
 
