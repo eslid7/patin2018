@@ -236,7 +236,7 @@ function getCalculateBills(userID, req, res){
 
 function getProductsByID (req, res) {
 	let idsProducts = req.query.ids.split(',');
-	productModel.find({_id : idsProducts},function (err, products) {
+	productModel.find({_id : idsProducts},null,{ skip: parseInt(req.query.offset), limit: parseInt(req.query.limit)},function (err, products) {
 		if(err){
 			console.log(err)
 			res.status(400).json({
@@ -244,7 +244,19 @@ function getProductsByID (req, res) {
 			})
 		}
 		else{
-			res.send({rows: products, total:products.length});
+			let  listProducts = products;
+			productModel.find({_id : idsProducts},function (err, productsTotal) {
+				if(err){
+					console.log(err)
+					res.status(400).json({
+						message: 'Error obtener los datos de las facturas.'
+					})
+				}
+				else{
+					res.send({rows: listProducts, total:productsTotal.length});
+				}
+
+			});
 		}
 
 	});
